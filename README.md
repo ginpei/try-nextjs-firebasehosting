@@ -1,34 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Deploy Next.js app to Firebase Hosting
 
-## Getting Started
+1. Upgrade your Firebase project
+   1. Open the Firebase console: https://console.firebase.google.com/
+   2. (Create and) open your project
+   3. Cog (⚙️) on the sidebar > Usage and billing > Details & settings > Firebase billing plan > Modify plan
+   4. Change plan from Spark (free) to Blaze (pay as you go)
+2. Create a Next.js app: `npx create-next-app@latest --ts`
+3. Set up Firebase
+   1. Install CLI: `npm install -D firebase-tools`
+   2. Set up: `npx firebase init hosting`
+   3. Enable feature: `npx firebase --open-sesame frameworkawareness`
+   4. (Optional) try local: `npx firebase serve`
+4. Deploy: `npx firebase deploy`
+5. Open your site: `https://<FB_ID>.web.app`
 
-First, run the development server:
+## References
 
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [FirebaseExtended/firebase-framework-tools: Experimental addon to the Firebase CLI to add web framework support](https://github.com/FirebaseExtended/firebase-framework-tools)
+- [Next.jsのホスティング先としてFirebaseは『かなりアリ』な選択肢になっている](https://zenn.dev/masakasuno1/articles/0988d547ab1de8)
+- [Firebase CLIのNext.jsデプロイ対応について調べる](https://zenn.dev/laiso/articles/83310ab66881b4)
