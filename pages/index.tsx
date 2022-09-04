@@ -1,10 +1,14 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 
-const Home: NextPage = () => {
+interface HomePageProps {
+  serverTime: string;
+}
+
+const Home: NextPage<HomePageProps> = ({ serverTime }) => {
   const [sayingHello, setSayingHello] = useState(false);
 
   const onHelloClick = async () => {
@@ -33,15 +37,19 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
+        <p>
+          serverTime: {serverTime}
+        </p>
+
+        <p>
+          <button disabled={sayingHello} onClick={onHelloClick}>
+            Fetch <code>/api/hello</code>
+          </button>
+        </p>
+
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.tsx</code>
-        </p>
-        
-        <p>
-          <button disabled={sayingHello} onClick={onHelloClick}>
-            Hello
-          </button>
         </p>
 
         <div className={styles.grid}>
@@ -92,3 +100,16 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export const getServerSideProps: GetServerSideProps<HomePageProps> = async (context) => {
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  );
+
+  return {
+    props: {
+      serverTime: new Date().toLocaleString(),
+    },
+  }
+}
