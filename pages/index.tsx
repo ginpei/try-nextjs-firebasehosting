@@ -1,9 +1,25 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  const [sayingHello, setSayingHello] = useState(false);
+
+  const onHelloClick = async () => {
+    setSayingHello(true);
+    try {
+      const res = await fetch('/api/hello');
+      window.alert(`Hello: ${await res.text()}`)
+    } catch (error) {
+      console.error(error);
+      window.alert(`Error: ${String(error)}`)
+    } finally {
+      setSayingHello(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -20,6 +36,12 @@ const Home: NextPage = () => {
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.tsx</code>
+        </p>
+        
+        <p>
+          <button disabled={sayingHello} onClick={onHelloClick}>
+            Hello
+          </button>
         </p>
 
         <div className={styles.grid}>
